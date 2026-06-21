@@ -336,6 +336,14 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     runSequence();
   };
 
+  // Click / tap anywhere during the draw to skip to the finished logo.
+  const handleSkip = () => {
+    if (controlsVisible) return; // already done (or showing controls)
+    tlRef.current?.kill();
+    cancelAnimationFrame(rafRef.current);
+    showFinalFrame();
+  };
+
   const handleEnter = () => {
     if (containerRef.current) {
       containerRef.current.style.transition = 'all 1.0s cubic-bezier(0.25, 1, 0.5, 1)';
@@ -349,8 +357,16 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   if (!isActive) return null;
 
   return (
-    <div ref={containerRef} className={`preloader-container ${isActive ? 'preloader-active' : ''}`}>
+    <div
+      ref={containerRef}
+      className={`preloader-container ${isActive ? 'preloader-active' : ''}`}
+      onClick={handleSkip}
+      style={{ cursor: controlsVisible ? 'default' : 'pointer' }}
+    >
       <Particles />
+
+      {/* Skip hint — shown only while the logo is still drawing */}
+      {!controlsVisible && <div className="skip-hint">Tap to skip</div>}
 
       <div className="calligraphy-stage">
         <svg className="calligraphy-svg" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
