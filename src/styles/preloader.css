@@ -1,0 +1,303 @@
+/* Preloader Design System & Luxury Aesthetics */
+
+:root {
+  --bg-color: #F8E8DC;
+  --henna-dark: #4B2F25;     /* Mehandi - dark chocolate brown */
+  --henna-blush: #C79A92;    /* Creation - dusty blush pink */
+  --gold-primary: #D4AF37;   /* Henna cone packaging */
+  --gold-dark: #aa7c11;
+  --gold-light: #f3e5ab;
+  --font-serif: 'Playfair Display', serif;
+  --font-calligraphy: 'Great Vibes', cursive;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Luxury Cinematic Background Container */
+.preloader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 50%, #FFF5EE 0%, #F8E8DC 70%, #ECCBB5 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: filter 0.5s ease-out;
+  animation: camera-breath 20s ease-in-out infinite alternate;
+}
+
+.preloader-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Canvas Particle Layer */
+.particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ========================================
+   CALLIGRAPHY TEXT AREA
+   ======================================== */
+.calligraphy-stage {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* The SVG text calligraphy */
+.calligraphy-svg {
+  width: 90%;
+  max-width: 700px;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0px 4px 8px rgba(75, 47, 37, 0.1));
+}
+
+/* Calligraphy text styling */
+.calligraphy-text-mehandi {
+  font-family: var(--font-calligraphy);
+  font-size: 120px;
+  fill: var(--henna-dark);
+  opacity: 0;
+}
+
+.calligraphy-text-creation {
+  font-family: var(--font-calligraphy);
+  font-size: 80px;
+  fill: var(--henna-blush);
+  opacity: 0;
+}
+
+/* Decorative floral underline stroke */
+.calligraphy-underline {
+  fill: none;
+  stroke: var(--henna-blush);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+/* ========================================
+   BRAND DETAILS (Below Calligraphy)
+   ======================================== */
+.brand-details {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 6;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  margin-top: 30px;
+}
+
+.brand-details-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.artist-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: #6D5146;
+  margin-bottom: 8px;
+  font-weight: 500;
+  position: relative;
+}
+
+.artist-tag::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background-color: var(--henna-blush);
+  margin: 8px auto 0 auto;
+  opacity: 0.7;
+}
+
+.location-tag {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 2px;
+  color: #8C6F62;
+  margin-top: 4px;
+}
+
+/* ========================================
+   ACTION CONTROLS (Replay / Enter)
+   ======================================== */
+.intro-controls {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  margin-top: 24px;
+}
+
+.controls-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-luxury {
+  background: transparent;
+  border: 1px solid rgba(75, 47, 37, 0.25);
+  color: var(--henna-dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding: 12px 28px;
+  cursor: pointer;
+  border-radius: 40px;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-luxury::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: 0.5s;
+}
+
+.btn-luxury:hover::before {
+  left: 100%;
+}
+
+.btn-luxury:hover {
+  background-color: var(--henna-dark);
+  color: #FFF5EE;
+  border-color: var(--henna-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(75, 47, 37, 0.15);
+}
+
+.btn-primary-luxury {
+  background-color: var(--henna-dark);
+  color: #FFF5EE;
+  border-color: var(--henna-dark);
+}
+
+.btn-primary-luxury:hover {
+  background-color: #361f17;
+  border-color: #361f17;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+/* Foil shine animation */
+@keyframes shine-foil {
+  0% { background-position: -200% -200%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* Subtle camera breath simulation */
+@keyframes camera-breath {
+  0% {
+    transform: scale(1.01);
+    filter: contrast(1) brightness(1);
+  }
+  100% {
+    transform: scale(1.03);
+    filter: contrast(1.02) brightness(0.99);
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .calligraphy-svg {
+    width: 95%;
+  }
+
+  .calligraphy-text-mehandi {
+    font-size: 80px;
+  }
+  
+  .calligraphy-text-creation {
+    font-size: 55px;
+  }
+  
+  .artist-tag {
+    font-size: 9px;
+    letter-spacing: 4px;
+  }
+  
+  .location-tag {
+    font-size: 10px;
+  }
+  
+  .btn-luxury {
+    padding: 10px 20px;
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .brand-details {
+    margin-top: 20px;
+  }
+
+  .intro-controls {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calligraphy-text-mehandi {
+    font-size: 60px;
+  }
+  
+  .calligraphy-text-creation {
+    font-size: 42px;
+  }
+
+  .intro-controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

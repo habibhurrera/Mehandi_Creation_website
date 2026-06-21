@@ -1,0 +1,86 @@
+/* VideoScrollHero — adapted to the project's plain-CSS stack (no Tailwind/shadcn).
+   Colors use the Mehandi henna palette. */
+
+.vsh-root {
+  position: relative;
+}
+
+/* Tall track that provides the scroll distance for the scale effect */
+.vsh-track {
+  position: relative;
+  height: 200vh;
+  background-color: #FFFDFB;
+}
+
+/* Pinned viewport-height stage */
+.vsh-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.vsh-scaler {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* fill the whole stage so scale(1) = full-bleed hero */
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.vsh-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.vsh-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(45, 26, 19, 0.22);
+  backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+}
+
+.vsh-overlay-inner {
+  text-align: center;
+  color: #FFF5EE;
+  padding: 0 16px;
+}
+
+.vsh-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 12px 0;
+  color: #FFF5EE;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+
+.vsh-title .vsh-accent {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  color: #E9C9BE;
+}
+
+.vsh-sub {
+  font-size: clamp(14px, 2vw, 20px);
+  line-height: 1.5;
+  color: rgba(255, 245, 238, 0.85);
+  max-width: 640px;
+  margin: 0 auto;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
