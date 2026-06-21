@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import "./video-scroll-hero.css";
 
 interface VideoScrollHeroProps {
@@ -26,6 +27,11 @@ export function VideoScrollHero({
   const containerRef = useRef<HTMLDivElement>(null);
   const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
   const [scrollScale, setScrollScale] = useState(startScale);
+  // On phones a 0.25 start is too tiny — begin a bit larger, but small enough
+  // that the grow-on-scroll is clearly visible.
+  const [minScale, setMinScale] = useState(startScale);
+  // Whether the user has started scrolling (hides the "Scroll down" hint).
+  const [started, setStarted] = useState(false);
 
   // Reliable reduced-motion check via matchMedia (kept in sync).
   useEffect(() => {
@@ -34,6 +40,24 @@ export function VideoScrollHero({
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Raise the starting scale a little on small screens (but keep the growth obvious).
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const update = () => setMinScale(mq.matches ? Math.max(startScale, 0.42) : startScale);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [startScale]);
+
+  // Hide the "Scroll down" hint as soon as the user scrolls (works regardless of
+  // reduced-motion, so the cue always disappears).
+  useEffect(() => {
+    const onScroll = () => setStarted(window.scrollY > 16);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -54,8 +78,8 @@ export function VideoScrollHero({
       const maxScroll = containerHeight - windowHeight;
       const progress = maxScroll > 0 ? Math.min(scrolled / maxScroll, 1) : 0;
 
-      // Scale from startScale up to 1
-      setScrollScale(startScale + progress * (1 - startScale));
+      // Scale from the (responsive) start scale up to 1
+      setScrollScale(minScale + progress * (1 - minScale));
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -66,7 +90,7 @@ export function VideoScrollHero({
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, [enableAnimations, shouldReduceMotion, startScale]);
+  }, [enableAnimations, shouldReduceMotion, minScale]);
 
   const shouldAnimate = enableAnimations && !shouldReduceMotion;
 
@@ -74,6 +98,17 @@ export function VideoScrollHero({
     <div className={`vsh-root ${className}`}>
       <div ref={containerRef} className="vsh-track">
         <div className="vsh-sticky">
+          {/* Scroll hint — fades out once the user starts scrolling */}
+          <motion.div
+            className="vsh-hint"
+            animate={{ opacity: started ? 0 : 1, y: started ? -10 : 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            aria-hidden="true"
+          >
+            <span>Scroll down</span>
+            <ChevronDown className="vsh-hint-chevron" size={20} />
+          </motion.div>
+
           <div
             className="vsh-scaler"
             style={{

@@ -3,10 +3,11 @@ import { Preloader } from './components/Preloader';
 import './styles/preloader.css';
 import { VideoScrollHero } from './components/ui/video-scroll-hero';
 import ImageReveal from './components/ui/image-tiles';
-import { Heart, Sparkles, MapPin, Mail, Calendar, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Heart, Sparkles, MapPin, Mail, Calendar, CheckCircle, ArrowLeft, Menu, X } from 'lucide-react';
 
 function App() {
   const [preloaderComplete, setPreloaderComplete] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
@@ -34,13 +35,21 @@ function App() {
             <span className="logo-text-mehandi">Mehandi</span>
             <span className="logo-text-creation">Creation</span>
           </div>
-          <nav className="nav-links">
-            <a href="#about" className="nav-item">About Ilma</a>
-            <a href="#services" className="nav-item">Services</a>
-            <a href="#gallery" className="nav-item">Gallery</a>
-            <a href="#booking" className="nav-item">Book Appointment</a>
+          <button
+            className="nav-toggle"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+          <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`}>
+            <a href="#about" className="nav-item" onClick={() => setMenuOpen(false)}>About Ilma</a>
+            <a href="#services" className="nav-item" onClick={() => setMenuOpen(false)}>Services</a>
+            <a href="#gallery" className="nav-item" onClick={() => setMenuOpen(false)}>Gallery</a>
+            <a href="#booking" className="nav-item" onClick={() => setMenuOpen(false)}>Book Appointment</a>
+            <a href="#booking" className="nav-cta-btn" onClick={() => setMenuOpen(false)}>Book Now</a>
           </nav>
-          <a href="#booking" className="nav-cta-btn">Book Now</a>
         </header>
 
         {/* Cinematic scroll-to-scale video hero */}
@@ -268,7 +277,20 @@ function App() {
         }
         .nav-links {
           display: flex;
-          gap: 36px;
+          align-items: center;
+          gap: 32px;
+        }
+        .nav-toggle {
+          display: none;
+          background: rgba(255, 253, 251, 0.9);
+          border: 1px solid rgba(75, 47, 37, 0.15);
+          color: #4B2F25;
+          width: 42px;
+          height: 42px;
+          border-radius: 12px;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
         }
         .nav-item {
           text-decoration: none;
@@ -761,14 +783,81 @@ function App() {
         }
         @media (max-width: 768px) {
           .back-to-intro-btn {
-            top: 16px;
-            left: 16px;
+            top: 14px;
+            left: 14px;
             width: 36px;
             height: 36px;
           }
+
+          /* Mobile navigation — collapse links into a toggle menu */
           .nav-header {
-            padding-left: 68px;
+            padding: 14px 5vw;
+            padding-left: 62px;
           }
+          .nav-logo { font-size: 19px; }
+          .nav-toggle { display: inline-flex; }
+          .nav-links {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            background-color: #FFFDFB;
+            border-top: 1px solid rgba(75, 47, 37, 0.08);
+            border-bottom: 1px solid rgba(75, 47, 37, 0.08);
+            padding: 4px 5vw 18px 5vw;
+            box-shadow: 0 16px 30px rgba(75, 47, 37, 0.10);
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+          }
+          .nav-links.nav-open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+          }
+          .nav-item {
+            padding: 15px 2px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(75, 47, 37, 0.06);
+          }
+          .nav-cta-btn {
+            margin-top: 16px;
+            text-align: center;
+            padding: 14px 24px;
+            font-size: 12px;
+          }
+
+          /* Typography & spacing */
+          .hero-section { padding: 6vh 6vw 8vh; min-height: auto; gap: 28px; }
+          .hero-title { font-size: 38px; }
+          .hero-subtitle { font-size: 14px; }
+          .hero-actions { flex-wrap: wrap; gap: 12px; }
+          .section-title { font-size: 28px; }
+          .section-label { font-size: 10px; letter-spacing: 2px; }
+          .section-header { margin-bottom: 40px; }
+          .about-section { padding: 70px 6vw; }
+          .about-grid { gap: 44px; }
+          .services-section { padding: 70px 6vw; }
+          .gallery-section { padding: 70px 6vw 90px; }
+          .gallery-reveal { min-height: 300px; }
+          .site-footer { padding: 60px 6vw 32px; }
+          .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+          .visual-card { width: 100%; max-width: 340px; }
+          .media-box { width: 240px; height: 320px; }
+          .media-ring { width: 270px; height: 270px; }
+        }
+
+        @media (max-width: 480px) {
+          .hero-title { font-size: 31px; }
+          .hero-subtitle { font-size: 13.5px; }
+          .section-title { font-size: 24px; }
+          .service-card { padding: 26px; }
+          .nav-logo { font-size: 17px; }
+          .btn-solid, .btn-outline { padding: 14px 26px; font-size: 11px; }
         }
       `}</style>
     </>
