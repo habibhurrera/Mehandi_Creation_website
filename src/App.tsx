@@ -134,6 +134,7 @@ function App() {
             <h2 className="section-title">Her Work</h2>
             <p className="section-subtitle">A glimpse of intricate bridal &amp; festive henna artistry.</p>
           </div>
+          {/* Desktop: hover-fanned stack */}
           <div className="gallery-reveal">
             <ImageReveal
               leftImage="https://images.unsplash.com/photo-1595407753234-0882f1e77954?w=600&q=80&auto=format&fit=crop"
@@ -141,6 +142,20 @@ function App() {
               rightImage="https://images.unsplash.com/photo-1602910344008-22f323cc1817?w=600&q=80&auto=format&fit=crop"
             />
           </div>
+
+          {/* Mobile: swipeable strip (no hover on touch) */}
+          <div className="gallery-mobile">
+            {[
+              'https://images.unsplash.com/photo-1595407753234-0882f1e77954?w=600&q=80&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=600&q=80&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1602910344008-22f323cc1817?w=600&q=80&auto=format&fit=crop',
+            ].map((src, i) => (
+              <div className="gm-card" key={i}>
+                <img src={src} alt="Mehndi design" loading="lazy" />
+              </div>
+            ))}
+          </div>
+          <p className="gallery-swipe-hint">Swipe to explore →</p>
         </section>
 
         {/* Services Section */}
@@ -593,6 +608,9 @@ function App() {
           min-height: 360px;
           margin-top: 20px;
         }
+        /* Mobile swipe gallery (hidden on desktop) */
+        .gallery-mobile { display: none; }
+        .gallery-swipe-hint { display: none; }
 
         /* Services Section */
         .services-section {
@@ -842,8 +860,43 @@ function App() {
           .about-section { padding: 70px 6vw; }
           .about-grid { gap: 44px; }
           .services-section { padding: 70px 6vw; }
-          .gallery-section { padding: 70px 6vw 90px; }
-          .gallery-reveal { min-height: 300px; }
+          .gallery-section { padding: 70px 6vw 80px; }
+          .gallery-reveal { display: none; }
+          .gallery-mobile {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 6vw 6px 6vw;
+            margin: 16px -6vw 0 -6vw;
+            scrollbar-width: none;
+          }
+          .gallery-mobile::-webkit-scrollbar { display: none; }
+          .gm-card {
+            flex: 0 0 80%;
+            scroll-snap-align: center;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 14px 30px rgba(75, 47, 37, 0.18);
+          }
+          .gm-card img {
+            display: block;
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+          }
+          .gallery-swipe-hint {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C79A92;
+            font-weight: 600;
+          }
           .site-footer { padding: 60px 6vw 32px; }
           .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
           .visual-card { width: 100%; max-width: 340px; }
