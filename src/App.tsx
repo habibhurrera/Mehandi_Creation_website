@@ -3,7 +3,18 @@ import { Preloader } from './components/Preloader';
 import './styles/preloader.css';
 import { VideoScrollHero } from './components/ui/video-scroll-hero';
 import ImageReveal from './components/ui/image-tiles';
-import { Heart, Sparkles, MapPin, Mail, Calendar, CheckCircle, ArrowLeft, Menu, X } from 'lucide-react';
+import { Reveal, RevealGroup, RevealItem } from './components/Reveal';
+import { Heart, Sparkles, MapPin, Mail, Calendar, CheckCircle, ArrowLeft, Menu, X, Phone, MessageCircle, Award, GraduationCap, Star, Users, Palette } from 'lucide-react';
+
+// Brand glyph not shipped by this lucide build — small inline Instagram mark.
+const Instagram = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
 
 function App() {
   const [preloaderComplete, setPreloaderComplete] = useState(false);
@@ -32,7 +43,7 @@ function App() {
         {/* Navigation Bar */}
         <header className="nav-header">
           <div className="nav-logo">
-            <span className="logo-text-mehandi">Mehandi</span>
+            <span className="logo-text-mehandi">Mehndi</span>
             <span className="logo-text-creation">Creation</span>
           </div>
           <button
@@ -47,8 +58,9 @@ function App() {
             <a href="#about" className="nav-item" onClick={() => setMenuOpen(false)}>About Ilma</a>
             <a href="#services" className="nav-item" onClick={() => setMenuOpen(false)}>Services</a>
             <a href="#gallery" className="nav-item" onClick={() => setMenuOpen(false)}>Gallery</a>
-            <a href="#booking" className="nav-item" onClick={() => setMenuOpen(false)}>Book Appointment</a>
-            <a href="#booking" className="nav-cta-btn" onClick={() => setMenuOpen(false)}>Book Now</a>
+            <a href="#training" className="nav-item" onClick={() => setMenuOpen(false)}>Training</a>
+            <a href="#contact" className="nav-item" onClick={() => setMenuOpen(false)}>Contact</a>
+            <a href="#contact" className="nav-cta-btn" onClick={() => setMenuOpen(false)}>Book Now</a>
           </nav>
         </header>
 
@@ -57,24 +69,27 @@ function App() {
 
         {/* Hero Section */}
         <section className="hero-section">
-          <div className="hero-content">
+          <Reveal className="hero-content" direction="right">
             <div className="badge">
               <Sparkles size={12} className="gold-icon" />
-              <span>Certified Bridal Mehandi Artist</span>
+              <span>Internationally Recognized Mehndi Artist &amp; Educator</span>
             </div>
             <h1 className="hero-title">
-              Crafting Timeless <br />
-              <span className="accent-text">Henna Masterpieces</span>
+              Transforming Mehndi Into <br />
+              <span className="accent-text">Art, Culture &amp; Storytelling</span>
             </h1>
             <p className="hero-subtitle">
-              Specializing in bespoke luxury bridal designs, intricate traditional motifs, and modern contemporary geometry. Handcrafted with organic, premium dark-staining henna.
+              Learn from Ilma Multani, an internationally recognized Mehndi Artist, Educator, and Creative Mentor with over 10 years of experience in bridal henna, advanced design techniques, and professional artist coaching.
+            </p>
+            <p className="hero-subtitle hero-subtitle-secondary">
+              From breathtaking bridal Mehndi to internationally acclaimed training programs, Ilma helps clients celebrate life's most precious moments while empowering aspiring artists to build successful careers in the henna industry.
             </p>
             <div className="hero-actions">
-              <a href="#booking" className="btn-solid">Schedule Consultation</a>
-              <a href="#gallery" className="btn-outline">Explore Gallery</a>
+              <a href="#contact" className="btn-solid">Book Bridal Mehndi</a>
+              <a href="#training" className="btn-outline">Join Training Program</a>
             </div>
-          </div>
-          <div className="hero-visual">
+          </Reveal>
+          <Reveal className="hero-visual" direction="left" delay={0.15}>
             <div className="visual-card">
               <div className="visual-image-placeholder">
                 <div className="mandala-sketch"></div>
@@ -83,57 +98,129 @@ function App() {
                 <div className="artist-avatar">IM</div>
                 <div>
                   <h4 className="artist-name">Ilma Multani</h4>
-                  <p className="artist-title">Lead Mehandi Designer</p>
+                  <p className="artist-title">Mehndi Artist, Educator &amp; Mentor</p>
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
+        </section>
+
+        {/* Quick Statistics */}
+        <section className="stats-bar">
+          <RevealGroup className="stats-grid" stagger={0.1}>
+            <RevealItem className="stat-item">
+              <div className="stat-value">10+</div>
+              <div className="stat-label">Years Experience</div>
+            </RevealItem>
+            <RevealItem className="stat-item">
+              <div className="stat-value">500+</div>
+              <div className="stat-label">Students Trained</div>
+            </RevealItem>
+            <RevealItem className="stat-item">
+              <div className="stat-value">Global</div>
+              <div className="stat-label">International Training Programs</div>
+            </RevealItem>
+            <RevealItem className="stat-item">
+              <div className="stat-value">Bridal &amp; Pro</div>
+              <div className="stat-label">Mehndi Specialist</div>
+            </RevealItem>
+          </RevealGroup>
         </section>
 
         {/* About Section */}
         <section id="about" className="about-section">
           <div className="about-grid">
-            <div className="about-text">
+            <Reveal className="about-text" direction="right">
               <div className="section-label">The Artist</div>
               <h2 className="section-title">Meet Ilma Multani</h2>
               <p>
-                With over a decade of dedicated craftsmanship, certified artist Ilma Multani brings a unique fusion of traditional Indian, Arabic, and contemporary geometric patterns to life.
+                Ilma Multani is a passionate Mehndi Artist, Trainer, and Creative Entrepreneur based in Nagina, Bijnor, Uttar Pradesh, India. With more than a decade of professional experience, she has established herself as a trusted name in bridal Mehndi artistry and professional henna education.
               </p>
               <p>
-                Each design is created freehand, drawing inspiration from ancient heritage, bridal stories, and modern couture. We utilize 100% natural, chemical-free henna paste made from selected triple-sifted henna leaves, pure essential oils, and eucalyptus.
+                As the Co-Founder and Chief Creative Director of MehndiCulture, Ilma has dedicated her career to preserving traditional henna art while introducing innovative modern concepts that inspire artists around the world. Through her training programs, she empowers aspiring Mehndi artists with technical expertise, business knowledge, and creative confidence.
               </p>
               <div className="features-list">
                 <div className="feature-item">
                   <CheckCircle size={16} className="feature-icon" />
-                  <span>Bespoke Bridal Customizations</span>
+                  <span>Co-Founder &amp; Chief Creative Director, MehndiCulture</span>
                 </div>
                 <div className="feature-item">
                   <CheckCircle size={16} className="feature-icon" />
-                  <span>Deep Reddish-Brown Natural Stains</span>
+                  <span>Concept-Based, 100% Natural Henna Artistry</span>
                 </div>
                 <div className="feature-item">
                   <CheckCircle size={16} className="feature-icon" />
-                  <span>International Destination Bookings</span>
+                  <span>International Training Programs &amp; Workshops</span>
                 </div>
               </div>
-            </div>
-            <div className="about-media">
+            </Reveal>
+            <Reveal className="about-media" direction="left" delay={0.1}>
               <div className="media-ring"></div>
               <div className="media-box">
                 <div className="signature-glow"></div>
                 <div className="media-caption">Ilma Multani Signature Mark</div>
               </div>
-            </div>
+            </Reveal>
           </div>
+        </section>
+
+        {/* Why Choose Ilma */}
+        <section id="why" className="why-section">
+          <Reveal className="section-header">
+            <div className="section-label">Why Choose Ilma</div>
+            <h2 className="section-title">Artistry Rooted in Trust &amp; Excellence</h2>
+            <p className="section-subtitle">More than a Mehndi service — a thoughtful, safe, and deeply personal experience crafted around every client and every celebration.</p>
+          </Reveal>
+          <RevealGroup className="why-grid" stagger={0.1}>
+            <RevealItem className="why-card">
+              <div className="why-icon-box"><Award size={22} /></div>
+              <h3 className="why-title">100% Natural Henna</h3>
+              <p className="why-desc">Only pure, skin-safe, chemical-free henna — rich stain, soothing aroma, and zero compromise on your wellbeing.</p>
+            </RevealItem>
+            <RevealItem className="why-card">
+              <div className="why-icon-box"><Palette size={22} /></div>
+              <h3 className="why-title">Concept-Based Artistry</h3>
+              <p className="why-desc">Designs built around your story — names, dates, motifs and meaning woven into every intricate detail.</p>
+            </RevealItem>
+            <RevealItem className="why-card">
+              <div className="why-icon-box"><GraduationCap size={22} /></div>
+              <h3 className="why-title">Internationally Certified</h3>
+              <p className="why-desc">A decade of experience and a globally recognised training reputation behind every line and curve.</p>
+            </RevealItem>
+            <RevealItem className="why-card">
+              <div className="why-icon-box"><Heart size={22} /></div>
+              <h3 className="why-title">Personalized Experience</h3>
+              <p className="why-desc">Calm, unhurried, and detail-obsessed — your comfort and vision guide the whole session.</p>
+            </RevealItem>
+          </RevealGroup>
+        </section>
+
+        {/* Signature Approach */}
+        <section className="signature-section">
+          <Reveal className="signature-inner">
+            <div className="section-label light-label">The Signature Approach</div>
+            <h2 className="signature-title">Concept-Based Mehndi — Where Henna Becomes Storytelling</h2>
+            <p className="signature-text">
+              Ilma's signature style moves beyond decoration. Every design begins with a conversation — your
+              celebration, your culture, the people and moments that matter — then transforms into a bespoke
+              composition of motifs, symbols, and hidden details unique to you. It is Mehndi as art, memory,
+              and meaning, applied with 100% natural henna and a craftsperson's patience.
+            </p>
+            <div className="signature-points">
+              <div className="signature-point"><CheckCircle size={16} className="feature-icon" /><span>Custom concepts &amp; hidden initials</span></div>
+              <div className="signature-point"><CheckCircle size={16} className="feature-icon" /><span>Cultural &amp; contemporary fusion</span></div>
+              <div className="signature-point"><CheckCircle size={16} className="feature-icon" /><span>Natural henna, deep lasting stain</span></div>
+            </div>
+          </Reveal>
         </section>
 
         {/* Gallery / Her Work Section */}
         <section id="gallery" className="gallery-section">
-          <div className="section-header">
+          <Reveal className="section-header">
             <div className="section-label">Portfolio</div>
-            <h2 className="section-title">Her Work</h2>
-            <p className="section-subtitle">A glimpse of intricate bridal &amp; festive henna artistry.</p>
-          </div>
+            <h2 className="section-title">Featured Mehndi Creations</h2>
+            <p className="section-subtitle">Explore a collection of bridal masterpieces, contemporary patterns, cultural artwork, and student success stories created through years of artistic excellence.</p>
+          </Reveal>
           {/* Desktop: hover-fanned stack */}
           <div className="gallery-reveal">
             <ImageReveal
@@ -160,46 +247,146 @@ function App() {
 
         {/* Services Section */}
         <section id="services" className="services-section">
-          <div className="section-header">
-            <div className="section-label">Bespoke Offerings</div>
-            <h2 className="section-title">Luxury Packages</h2>
-            <p className="section-subtitle">Tailored for weddings, celebrations, and private design sessions.</p>
-          </div>
+          <Reveal className="section-header">
+            <div className="section-label">Services</div>
+            <h2 className="section-title">What Ilma Offers</h2>
+            <p className="section-subtitle">Bespoke henna artistry for weddings, celebrations, and personal stories.</p>
+          </Reveal>
 
-          <div className="services-grid">
-            <div className="service-card">
+          <RevealGroup className="services-grid" stagger={0.12}>
+            <RevealItem className="service-card">
               <div className="service-icon-box">
                 <Heart size={24} className="service-icon" />
               </div>
-              <h3 className="service-name">Royal Bridal Package</h3>
+              <h3 className="service-name">Bridal Mehndi</h3>
               <p className="service-desc">
-                Extremely intricate, dense, full-arm and full-leg bridal patterns incorporating customized love stories, wedding portraits, and royal mandalas. Includes a post-application care kit.
+                Luxury bridal Mehndi designs crafted with precision, elegance, and personalization for weddings and special occasions.
               </p>
-              <div className="service-price">From $450</div>
-            </div>
+              <div className="service-price">From ₹200</div>
+            </RevealItem>
 
-            <div className="service-card">
+            <RevealItem className="service-card">
               <div className="service-icon-box">
                 <Sparkles size={24} className="service-icon" />
               </div>
-              <h3 className="service-name">Classic Indo-Arabic</h3>
+              <h3 className="service-name">Custom Mehndi Designs</h3>
               <p className="service-desc">
-                An elegant combination of bold Arabic flows and delicate Indian filler patterns. Ideal for bridesmaids, family members, baby showers, or festive celebrations.
+                Personalized Mehndi artwork designed to reflect individual stories, cultures, celebrations, and creative concepts.
               </p>
-              <div className="service-price">From $200</div>
-            </div>
+              <div className="service-price">Custom Pricing</div>
+            </RevealItem>
 
-            <div className="service-card">
+            <RevealItem className="service-card">
               <div className="service-icon-box">
-                <MapPin size={24} className="service-icon" />
+                <Calendar size={24} className="service-icon" />
               </div>
-              <h3 className="service-name">Contemporary Geometric</h3>
+              <h3 className="service-name">Festival &amp; Event Mehndi</h3>
               <p className="service-desc">
-                Modern minimalist henna art focusing on clean symmetry, mandalas, negative space, and bracelet-style wrist bands. Perfect for the modern chic bride.
+                Beautiful designs for festivals, family celebrations, engagements, baby showers, and cultural events.
               </p>
-              <div className="service-price">From $250</div>
-            </div>
+              <div className="service-price">On Request</div>
+            </RevealItem>
+          </RevealGroup>
+        </section>
+
+        {/* Training & Courses */}
+        <section id="training" className="training-section">
+          <div className="training-grid">
+            <Reveal className="training-text" direction="right">
+              <div className="section-label">Training &amp; Courses</div>
+              <h2 className="section-title">Become a Professional Mehndi Artist</h2>
+              <p className="training-lead">
+                Learn directly from Ilma Multani through structured, hands-on programs designed to take you from
+                fundamentals to advanced bridal artistry — and to build a real, sustainable career in henna.
+              </p>
+              <div className="training-points">
+                <div className="feature-item"><CheckCircle size={16} className="feature-icon" /><span>Beginner to advanced bridal modules</span></div>
+                <div className="feature-item"><CheckCircle size={16} className="feature-icon" /><span>Concept-based design &amp; composition</span></div>
+                <div className="feature-item"><CheckCircle size={16} className="feature-icon" /><span>Business, pricing &amp; client skills</span></div>
+                <div className="feature-item"><CheckCircle size={16} className="feature-icon" /><span>Certificate &amp; ongoing mentorship</span></div>
+              </div>
+              <div className="hero-actions training-actions">
+                <a href="https://wa.me/919760977091?text=Hi%20Ilma%2C%20I%27d%20like%20to%20enroll%20in%20the%20Mehndi%20training%20program." target="_blank" rel="noreferrer" className="btn-solid">Enroll Now</a>
+                <a href="#contact" className="btn-outline">Ask a Question</a>
+              </div>
+            </Reveal>
+            <RevealGroup className="training-cards" stagger={0.1}>
+              <RevealItem className="training-card">
+                <div className="why-icon-box"><GraduationCap size={22} /></div>
+                <h3 className="why-title">Foundation Course</h3>
+                <p className="why-desc">Master strokes, motifs, and confident linework from the very first session.</p>
+              </RevealItem>
+              <RevealItem className="training-card">
+                <div className="why-icon-box"><Star size={22} /></div>
+                <h3 className="why-title">Advanced Bridal</h3>
+                <p className="why-desc">Full bridal hand-and-feet artistry, balance, and signature concept work.</p>
+              </RevealItem>
+              <RevealItem className="training-card">
+                <div className="why-icon-box"><Users size={22} /></div>
+                <h3 className="why-title">Artist Mentorship</h3>
+                <p className="why-desc">Personal coaching on portfolio, branding, and growing your henna business.</p>
+              </RevealItem>
+            </RevealGroup>
           </div>
+        </section>
+
+        {/* Student Success */}
+        <section className="success-section">
+          <Reveal className="section-header">
+            <div className="section-label">Student Success</div>
+            <h2 className="section-title">Artists Trained, Careers Launched</h2>
+            <p className="section-subtitle">Hundreds of students have turned a passion for henna into a profession through Ilma's mentorship.</p>
+          </Reveal>
+          <RevealGroup className="success-grid" stagger={0.12}>
+            <RevealItem className="success-card">
+              <div className="success-stars"><Star size={14} /><Star size={14} /><Star size={14} /><Star size={14} /><Star size={14} /></div>
+              <p className="success-quote">“I joined as a complete beginner and now take my own bridal bookings. Ilma's concept-based method completely changed how I design.”</p>
+              <div className="success-author">— Sana, Bridal Mehndi Artist</div>
+            </RevealItem>
+            <RevealItem className="success-card">
+              <div className="success-stars"><Star size={14} /><Star size={14} /><Star size={14} /><Star size={14} /><Star size={14} /></div>
+              <p className="success-quote">“The mentorship went beyond technique — pricing, clients, branding. I finally treat my henna work like a real business.”</p>
+              <div className="success-author">— Ayesha, Freelance Henna Artist</div>
+            </RevealItem>
+            <RevealItem className="success-card">
+              <div className="success-stars"><Star size={14} /><Star size={14} /><Star size={14} /><Star size={14} /><Star size={14} /></div>
+              <p className="success-quote">“Her attention to detail is unreal. The advanced bridal course gave me the confidence to take on the biggest weddings of my career.”</p>
+              <div className="success-author">— Fatima, Studio Owner</div>
+            </RevealItem>
+          </RevealGroup>
+        </section>
+
+        {/* Dedicated Contact Section */}
+        <section id="contact" className="contact-section">
+          <Reveal className="contact-inner">
+            <div className="section-label light-label">Get In Touch</div>
+            <h2 className="contact-title">Book Your Mehndi or Training Session</h2>
+            <p className="contact-text">
+              Bridal bookings, custom designs, festival appointments, or training enquiries — reach out directly
+              and Ilma will personally help plan your perfect Mehndi experience.
+            </p>
+            <div className="contact-actions">
+              <a href="tel:+919760977091" className="contact-btn contact-btn-call">
+                <Phone size={18} />
+                <span>Call Now</span>
+              </a>
+              <a href="https://wa.me/919760977091?text=Hi%20Ilma%2C%20I%27d%20like%20to%20book%20a%20Mehndi%20session." target="_blank" rel="noreferrer" className="contact-btn contact-btn-wa">
+                <MessageCircle size={18} />
+                <span>WhatsApp Now</span>
+              </a>
+            </div>
+            <div className="contact-meta">
+              <a href="mailto:ilmamultani913@gmail.com" className="contact-meta-item">
+                <Mail size={15} /><span>ilmamultani913@gmail.com</span>
+              </a>
+              <a href="https://www.instagram.com/mehndi_creation7/" target="_blank" rel="noreferrer" className="contact-meta-item">
+                <Instagram size={15} /><span>@mehndi_creation7</span>
+              </a>
+              <div className="contact-meta-item">
+                <MapPin size={15} /><span>Nagina, Bijnor, Uttar Pradesh, India</span>
+              </div>
+            </div>
+          </Reveal>
         </section>
 
         {/* Footer & Booking Info */}
@@ -207,37 +394,45 @@ function App() {
           <div className="footer-content">
             <div className="footer-brand">
               <div className="nav-logo">
-                <span className="logo-text-mehandi">Mehandi</span>
+                <span className="logo-text-mehandi">Mehndi</span>
                 <span className="logo-text-creation">Creation</span>
               </div>
-              <p>Bespoke luxury henna artistry by certified designer Ilma Multani.</p>
+              <p>Ilma Multani — Professional Mehndi Artist &amp; Educator. Bridal Mehndi • Professional Training • International Workshops • Concept-Based Henna Art.</p>
               <div className="location-badge">
                 <MapPin size={14} className="gold-icon" />
-                <span>Mumbai • Dubai • Destination Weddings Globally</span>
+                <span>Nagina, District Bijnor, Uttar Pradesh, India</span>
               </div>
             </div>
 
             <div className="footer-links-group">
-              <h4>Contact & Bookings</h4>
+              <h4>Contact &amp; Bookings</h4>
               <div className="contact-details">
-                <a href="mailto:ilma@mehandicreation.com" className="contact-link">
-                  <Mail size={16} />
-                  <span>ilma@mehandicreation.com</span>
+                <a href="tel:+919760977091" className="contact-link">
+                  <Phone size={16} />
+                  <span>+91 9760977091</span>
                 </a>
-                <a href="https://instagram.com/mehandi_creation" target="_blank" rel="noreferrer" className="contact-link">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                  <span>@mehandi_creation</span>
+                <a href="mailto:ilmamultani913@gmail.com" className="contact-link">
+                  <Mail size={16} />
+                  <span>ilmamultani913@gmail.com</span>
+                </a>
+                <a href="https://wa.me/919760977091" target="_blank" rel="noreferrer" className="contact-link">
+                  <MessageCircle size={16} />
+                  <span>WhatsApp</span>
+                </a>
+                <a href="https://www.instagram.com/mehndi_creation7/" target="_blank" rel="noreferrer" className="contact-link">
+                  <Instagram size={16} />
+                  <span>@mehndi_creation7</span>
                 </a>
                 <div className="contact-link">
                   <Calendar size={16} />
-                  <span>Mon - Sun: By Appointment Only</span>
+                  <span>By Appointment Only</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} Mehandi Creation by Ilma Multani. All rights reserved.</p>
-            <p className="credit">Designed with luxury cinematic experiences.</p>
+            <p>&copy; {new Date().getFullYear()} Mehndi Creation by Ilma Multani. All rights reserved.</p>
+            <p className="credit">Bridal Mehndi • Professional Training • Concept-Based Henna Art</p>
           </div>
         </footer>
       </div>
@@ -495,6 +690,44 @@ function App() {
           color: #8C6F62;
         }
 
+        .hero-subtitle-secondary {
+          font-size: 13px;
+          opacity: 0.82;
+          margin-top: -14px;
+        }
+
+        /* Quick Statistics bar */
+        .stats-bar {
+          padding: 38px 6vw;
+          background-color: #FBF7F4;
+          border-top: 1px solid rgba(75, 47, 37, 0.06);
+          border-bottom: 1px solid rgba(75, 47, 37, 0.06);
+          text-align: center;
+        }
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+        }
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .stat-value {
+          font-family: 'Playfair Display', serif;
+          font-size: 30px;
+          font-weight: 700;
+          color: #4B2F25;
+          line-height: 1;
+        }
+        .stat-label {
+          font-size: 11px;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #8C6F62;
+        }
+
         /* About Section */
         .about-section {
           padding: 120px 6vw;
@@ -744,6 +977,261 @@ function App() {
           margin: 0;
         }
 
+        /* Why Choose Ilma */
+        .why-section {
+          padding: 120px 6vw;
+          background-color: #FFFDFB;
+        }
+        .why-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .why-card {
+          background-color: #FFFDFB;
+          border: 1px solid rgba(75, 47, 37, 0.08);
+          border-radius: 18px;
+          padding: 30px 26px;
+          transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s, box-shadow 0.4s;
+        }
+        .why-card:hover {
+          transform: translateY(-6px);
+          border-color: #C79A92;
+          box-shadow: 0 18px 36px rgba(75, 47, 37, 0.06);
+        }
+        .why-icon-box {
+          width: 46px;
+          height: 46px;
+          background-color: #F8E8DC;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #4B2F25;
+          margin-bottom: 18px;
+        }
+        .why-title {
+          font-family: 'Playfair Display', serif;
+          font-size: 17px;
+          font-weight: 700;
+          color: #4B2F25;
+          margin: 0 0 10px 0;
+        }
+        .why-desc {
+          font-size: 12.5px;
+          line-height: 1.6;
+          color: #6D5146;
+          margin: 0;
+        }
+
+        /* Signature Approach band */
+        .signature-section {
+          padding: 110px 6vw;
+          background:
+            radial-gradient(circle at 0% 0%, rgba(199, 154, 146, 0.12) 0%, transparent 45%),
+            #2D1A13;
+          color: #F1E7E0;
+        }
+        .signature-inner {
+          max-width: 820px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .light-label { color: #C79A92; }
+        .signature-title {
+          font-family: 'Playfair Display', serif;
+          font-size: 34px;
+          font-weight: 700;
+          color: #FFF5EE;
+          margin: 0 0 22px 0;
+          line-height: 1.2;
+        }
+        .signature-text {
+          font-size: 15px;
+          line-height: 1.8;
+          color: #D9CAC1;
+          margin: 0 auto 30px auto;
+          max-width: 720px;
+        }
+        .signature-points {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 14px 28px;
+        }
+        .signature-point {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 13px;
+          color: #FFF5EE;
+          font-weight: 500;
+        }
+
+        /* Training & Courses */
+        .training-section {
+          padding: 120px 6vw;
+          background-color: #FBF7F4;
+        }
+        .training-grid {
+          display: grid;
+          grid-template-columns: 1.05fr 0.95fr;
+          gap: 60px;
+          align-items: center;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .training-lead {
+          font-size: 14.5px;
+          line-height: 1.7;
+          color: #6D5146;
+          margin: 16px 0 26px 0;
+        }
+        .training-points {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          margin-bottom: 32px;
+        }
+        .training-actions { flex-wrap: wrap; }
+        .training-cards {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+        .training-card {
+          background-color: #FFFDFB;
+          border: 1px solid rgba(75, 47, 37, 0.08);
+          border-radius: 16px;
+          padding: 24px 26px;
+          transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s, box-shadow 0.4s;
+        }
+        .training-card:hover {
+          transform: translateX(6px);
+          border-color: #C79A92;
+          box-shadow: 0 16px 30px rgba(75, 47, 37, 0.06);
+        }
+
+        /* Student Success */
+        .success-section {
+          padding: 120px 6vw;
+          background-color: #FFFDFB;
+        }
+        .success-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+          max-width: 1100px;
+          margin: 0 auto;
+        }
+        .success-card {
+          background-color: #FBF7F4;
+          border: 1px solid rgba(75, 47, 37, 0.06);
+          border-radius: 18px;
+          padding: 32px 28px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .success-stars {
+          display: flex;
+          gap: 4px;
+          color: #D4AF37;
+        }
+        .success-quote {
+          font-size: 14px;
+          line-height: 1.7;
+          color: #4B2F25;
+          font-style: italic;
+          margin: 0;
+        }
+        .success-author {
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          color: #C79A92;
+          margin-top: auto;
+        }
+
+        /* Dedicated Contact Section */
+        .contact-section {
+          padding: 120px 6vw;
+          background:
+            radial-gradient(circle at 100% 100%, #FFF5EE 0%, transparent 55%),
+            #FBF7F4;
+          border-top: 1px solid rgba(75, 47, 37, 0.04);
+        }
+        .contact-inner {
+          max-width: 720px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .contact-title {
+          font-family: 'Playfair Display', serif;
+          font-size: 34px;
+          font-weight: 700;
+          color: #4B2F25;
+          margin: 0 0 18px 0;
+          line-height: 1.2;
+        }
+        .contact-text {
+          font-size: 15px;
+          line-height: 1.7;
+          color: #6D5146;
+          margin: 0 auto 32px auto;
+          max-width: 600px;
+        }
+        .contact-actions {
+          display: flex;
+          gap: 16px;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-bottom: 30px;
+        }
+        .contact-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          padding: 16px 32px;
+          border-radius: 40px;
+          transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+        .contact-btn-call {
+          background-color: #4B2F25;
+          color: #FFF5EE;
+          box-shadow: 0 8px 24px rgba(75, 47, 37, 0.14);
+        }
+        .contact-btn-call:hover { transform: translateY(-2px); background-color: #361f17; }
+        .contact-btn-wa {
+          background-color: #1EBE5D;
+          color: #FFFFFF;
+          box-shadow: 0 8px 24px rgba(30, 190, 93, 0.22);
+        }
+        .contact-btn-wa:hover { transform: translateY(-2px); background-color: #17a350; }
+        .contact-meta {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 12px 28px;
+        }
+        .contact-meta-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          color: #6D5146;
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+        a.contact-meta-item:hover { color: #4B2F25; }
+
         /* Responsive styles */
         @media (max-width: 992px) {
           .hero-section {
@@ -766,6 +1254,17 @@ function App() {
           }
           .services-grid {
             grid-template-columns: 1fr;
+          }
+          .why-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .training-grid {
+            grid-template-columns: 1fr;
+            gap: 44px;
+          }
+          .success-grid {
+            grid-template-columns: 1fr;
+            max-width: 560px;
           }
           .footer-content {
             grid-template-columns: 1fr;
@@ -857,9 +1356,22 @@ function App() {
           .section-title { font-size: 28px; }
           .section-label { font-size: 10px; letter-spacing: 2px; }
           .section-header { margin-bottom: 40px; }
+          .stats-bar { padding: 32px 6vw; }
+          .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
+          .stat-value { font-size: 26px; }
           .about-section { padding: 70px 6vw; }
           .about-grid { gap: 44px; }
           .services-section { padding: 70px 6vw; }
+          .why-section { padding: 70px 6vw; }
+          .why-grid { grid-template-columns: 1fr; gap: 16px; }
+          .signature-section { padding: 70px 6vw; }
+          .signature-title { font-size: 26px; }
+          .training-section { padding: 70px 6vw; }
+          .success-section { padding: 70px 6vw; }
+          .contact-section { padding: 70px 6vw; }
+          .contact-title { font-size: 26px; }
+          .contact-actions { flex-direction: column; align-items: stretch; }
+          .contact-btn { justify-content: center; }
           .gallery-section { padding: 70px 6vw 80px; }
           .gallery-reveal { display: none; }
           .gallery-mobile {
