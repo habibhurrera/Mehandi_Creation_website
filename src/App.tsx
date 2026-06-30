@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Preloader } from './components/Preloader';
 import './styles/preloader.css';
 import { VideoScrollHero } from './components/ui/video-scroll-hero';
-import ImageReveal from './components/ui/image-tiles';
+import { PortfolioGallery } from './components/PortfolioGallery';
 import { Reveal, RevealGroup, RevealItem } from './components/Reveal';
 import { Heart, Sparkles, MapPin, Mail, Calendar, CheckCircle, ArrowLeft, Menu, X, Phone, MessageCircle, Award, GraduationCap, Star, Users, Palette } from 'lucide-react';
 
@@ -221,28 +221,7 @@ function App() {
             <h2 className="section-title">Featured Mehndi Creations</h2>
             <p className="section-subtitle">Explore a collection of bridal masterpieces, contemporary patterns, cultural artwork, and student success stories created through years of artistic excellence.</p>
           </Reveal>
-          {/* Desktop: hover-fanned stack */}
-          <div className="gallery-reveal">
-            <ImageReveal
-              leftImage="https://images.unsplash.com/photo-1595407753234-0882f1e77954?w=600&q=80&auto=format&fit=crop"
-              middleImage="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=600&q=80&auto=format&fit=crop"
-              rightImage="https://images.unsplash.com/photo-1602910344008-22f323cc1817?w=600&q=80&auto=format&fit=crop"
-            />
-          </div>
-
-          {/* Mobile: swipeable strip (no hover on touch) */}
-          <div className="gallery-mobile">
-            {[
-              'https://images.unsplash.com/photo-1595407753234-0882f1e77954?w=600&q=80&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=600&q=80&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1602910344008-22f323cc1817?w=600&q=80&auto=format&fit=crop',
-            ].map((src, i) => (
-              <div className="gm-card" key={i}>
-                <img src={src} alt="Mehndi design" loading="lazy" />
-              </div>
-            ))}
-          </div>
-          <p className="gallery-swipe-hint">Swipe to explore →</p>
+          <PortfolioGallery />
         </section>
 
         {/* Services Section */}
@@ -829,21 +808,107 @@ function App() {
 
         /* Gallery / Her Work Section */
         .gallery-section {
-          padding: 120px 6vw 140px 6vw;
+          padding: 120px 6vw 130px 6vw;
           background-color: #FBF7F4;
           border-top: 1px solid rgba(75, 47, 37, 0.04);
+        }
+
+        /* Masonry portfolio */
+        .pf-masonry {
+          column-count: 4;
+          column-gap: 18px;
+          max-width: 1200px;
+          margin: 10px auto 0 auto;
+        }
+        .pf-item {
+          display: block;
+          width: 100%;
+          margin: 0 0 18px 0;
+          padding: 0;
+          border: none;
+          background: none;
+          border-radius: 16px;
           overflow: hidden;
+          cursor: pointer;
+          position: relative;
+          break-inside: avoid;
+          -webkit-column-break-inside: avoid;
+          box-shadow: 0 10px 26px rgba(75, 47, 37, 0.08);
+          transition: box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+          -webkit-tap-highlight-color: transparent;
         }
-        .gallery-reveal {
+        .pf-item img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border-radius: 16px;
+          transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .pf-overlay {
+          position: absolute;
+          inset: 0;
+          border-radius: 16px;
+          background: linear-gradient(to top, rgba(45, 26, 19, 0.34) 0%, transparent 45%);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+        }
+        .pf-item:hover { box-shadow: 0 20px 44px rgba(75, 47, 37, 0.18); }
+        .pf-item:hover img { transform: scale(1.06); }
+        .pf-item:hover .pf-overlay { opacity: 1; }
+        .pf-item:focus-visible { outline: 2px solid #C79A92; outline-offset: 3px; }
+
+        /* Lightbox */
+        .pf-lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 1000;
+          background: rgba(28, 16, 11, 0.92);
+          backdrop-filter: blur(4px);
           display: flex;
-          justify-content: center;
           align-items: center;
-          min-height: 360px;
-          margin-top: 20px;
+          justify-content: center;
+          padding: 4vh 4vw;
         }
-        /* Mobile swipe gallery (hidden on desktop) */
-        .gallery-mobile { display: none; }
-        .gallery-swipe-hint { display: none; }
+        .pf-lb-img {
+          max-width: min(92vw, 720px);
+          max-height: 90vh;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          border-radius: 12px;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+        .pf-lb-btn {
+          position: absolute;
+          background: rgba(255, 253, 251, 0.12);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          color: #FFF5EE;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background 0.3s, transform 0.3s;
+        }
+        .pf-lb-btn:hover { background: rgba(255, 253, 251, 0.24); transform: scale(1.06); }
+        .pf-lb-close { top: 22px; right: 22px; }
+        .pf-lb-prev { left: 2vw; top: 50%; transform: translateY(-50%); }
+        .pf-lb-next { right: 2vw; top: 50%; transform: translateY(-50%); }
+        .pf-lb-prev:hover { transform: translateY(-50%) scale(1.06); }
+        .pf-lb-next:hover { transform: translateY(-50%) scale(1.06); }
+        .pf-lb-count {
+          position: absolute;
+          bottom: 24px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #F1E7E0;
+          font-size: 13px;
+          letter-spacing: 2px;
+          opacity: 0.8;
+        }
 
         /* Services Section */
         .services-section {
@@ -1266,6 +1331,7 @@ function App() {
             grid-template-columns: 1fr;
             max-width: 560px;
           }
+          .pf-masonry { column-count: 3; }
           .footer-content {
             grid-template-columns: 1fr;
             gap: 40px;
@@ -1373,42 +1439,11 @@ function App() {
           .contact-actions { flex-direction: column; align-items: stretch; }
           .contact-btn { justify-content: center; }
           .gallery-section { padding: 70px 6vw 80px; }
-          .gallery-reveal { display: none; }
-          .gallery-mobile {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            padding: 8px 6vw 6px 6vw;
-            margin: 16px -6vw 0 -6vw;
-            scrollbar-width: none;
-          }
-          .gallery-mobile::-webkit-scrollbar { display: none; }
-          .gm-card {
-            flex: 0 0 80%;
-            scroll-snap-align: center;
-            border-radius: 18px;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 14px 30px rgba(75, 47, 37, 0.18);
-          }
-          .gm-card img {
-            display: block;
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-          }
-          .gallery-swipe-hint {
-            display: block;
-            text-align: center;
-            margin-top: 14px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #C79A92;
-            font-weight: 600;
-          }
+          .pf-masonry { column-count: 2; column-gap: 12px; }
+          .pf-item { margin-bottom: 12px; }
+          .pf-lb-prev { left: 10px; }
+          .pf-lb-next { right: 10px; }
+          .pf-lb-btn { width: 42px; height: 42px; }
           .site-footer { padding: 60px 6vw 32px; }
           .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
           .visual-card { width: 100%; max-width: 340px; }
