@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Preloader } from './components/Preloader';
 import './styles/preloader.css';
 import { VideoScrollHero } from './components/ui/video-scroll-hero';
+import { motion } from 'framer-motion';
 import { PortfolioGallery } from './components/PortfolioGallery';
 import { Reveal, RevealGroup, RevealItem } from './components/Reveal';
 import { Heart, Sparkles, MapPin, Mail, Calendar, CheckCircle, ArrowLeft, Menu, X, Phone, MessageCircle, Award, GraduationCap, Star, Users, Palette } from 'lucide-react';
@@ -56,8 +57,8 @@ function App() {
           </button>
           <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`}>
             <a href="#about" className="nav-item" onClick={() => setMenuOpen(false)}>About Ilma</a>
-            <a href="#services" className="nav-item" onClick={() => setMenuOpen(false)}>Services</a>
             <a href="#gallery" className="nav-item" onClick={() => setMenuOpen(false)}>Gallery</a>
+            <a href="#services" className="nav-item" onClick={() => setMenuOpen(false)}>Services</a>
             <a href="#training" className="nav-item" onClick={() => setMenuOpen(false)}>Training</a>
             <a href="#contact" className="nav-item" onClick={() => setMenuOpen(false)}>Contact</a>
             <a href="#contact" className="nav-cta-btn" onClick={() => setMenuOpen(false)}>Book Now</a>
@@ -92,7 +93,16 @@ function App() {
           <Reveal className="hero-visual" direction="left" delay={0.15}>
             <div className="visual-card">
               <div className="visual-image-placeholder">
-                <div className="mandala-sketch"></div>
+                <motion.img
+                  className="artist-photo"
+                  src="/artist-ilma.png"
+                  alt="Ilma Multani, Mehndi Artist"
+                  loading="eager"
+                  initial={{ opacity: 0, scale: 1.08 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1], delay: 0.45 }}
+                />
               </div>
               <div className="artist-info-card">
                 <div className="artist-avatar">IM</div>
@@ -157,8 +167,18 @@ function App() {
             <Reveal className="about-media" direction="left" delay={0.1}>
               <div className="media-ring"></div>
               <div className="media-box">
+                <motion.img
+                  className="about-photo"
+                  src="/artist-ilma.png"
+                  alt="Ilma Multani, Mehndi Artist"
+                  loading="lazy"
+                  initial={{ opacity: 0, scale: 1.08 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1], delay: 0.4 }}
+                />
                 <div className="signature-glow"></div>
-                <div className="media-caption">Ilma Multani Signature Mark</div>
+                <div className="media-caption">Ilma Multani</div>
               </div>
             </Reveal>
           </div>
@@ -621,6 +641,13 @@ function App() {
           position: relative;
           overflow: hidden;
         }
+        .artist-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 18%;
+          display: block;
+        }
         .mandala-sketch {
           width: 280px;
           height: 280px;
@@ -785,6 +812,23 @@ function App() {
           justify-content: flex-end;
           padding: 24px;
           border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .about-photo {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 18%;
+          z-index: 1;
+        }
+        .media-box::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(45, 26, 19, 0.72) 0%, transparent 45%);
+          z-index: 2;
+          pointer-events: none;
         }
         .signature-glow {
           position: absolute;
