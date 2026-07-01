@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -59,48 +60,51 @@ export function PortfolioGallery() {
         ))}
       </div>
 
-      <AnimatePresence>
-        {open !== null && (
-          <motion.div
-            className="pf-lightbox"
-            onClick={close}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <button className="pf-lb-btn pf-lb-close" onClick={close} aria-label="Close">
-              <X size={22} />
-            </button>
-            <button
-              className="pf-lb-btn pf-lb-prev"
-              onClick={(e) => { e.stopPropagation(); prev(); }}
-              aria-label="Previous"
+      {createPortal(
+        <AnimatePresence>
+          {open !== null && (
+            <motion.div
+              className="pf-lightbox"
+              onClick={close}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
             >
-              <ChevronLeft size={26} />
-            </button>
-            <motion.img
-              key={open}
-              className="pf-lb-img"
-              src={IMAGES[open]}
-              alt={`Bridal mehndi design ${open + 1}`}
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.28, ease: EASE }}
-            />
-            <button
-              className="pf-lb-btn pf-lb-next"
-              onClick={(e) => { e.stopPropagation(); next(); }}
-              aria-label="Next"
-            >
-              <ChevronRight size={26} />
-            </button>
-            <div className="pf-lb-count">{open + 1} / {IMAGES.length}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <button className="pf-lb-btn pf-lb-close" onClick={close} aria-label="Close">
+                <X size={22} />
+              </button>
+              <button
+                className="pf-lb-btn pf-lb-prev"
+                onClick={(e) => { e.stopPropagation(); prev(); }}
+                aria-label="Previous"
+              >
+                <ChevronLeft size={26} />
+              </button>
+              <motion.img
+                key={open}
+                className="pf-lb-img"
+                src={IMAGES[open]}
+                alt={`Bridal mehndi design ${open + 1}`}
+                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.28, ease: EASE }}
+              />
+              <button
+                className="pf-lb-btn pf-lb-next"
+                onClick={(e) => { e.stopPropagation(); next(); }}
+                aria-label="Next"
+              >
+                <ChevronRight size={26} />
+              </button>
+              <div className="pf-lb-count">{open + 1} / {IMAGES.length}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
     </>
   );
 }

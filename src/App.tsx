@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Preloader } from './components/Preloader';
 import './styles/preloader.css';
 import { VideoScrollHero } from './components/ui/video-scroll-hero';
-import { motion } from 'framer-motion';
 import { PortfolioGallery } from './components/PortfolioGallery';
 import { Reveal, RevealGroup, RevealItem } from './components/Reveal';
 import { Heart, Sparkles, MapPin, Mail, Calendar, CheckCircle, ArrowLeft, Menu, X, Phone, MessageCircle, Award, GraduationCap, Star, Users, Palette } from 'lucide-react';
@@ -93,16 +92,14 @@ function App() {
           <Reveal className="hero-visual" direction="left" delay={0.15}>
             <div className="visual-card">
               <div className="visual-image-placeholder">
-                <motion.img
-                  className="artist-photo"
-                  src="/artist-ilma.png"
-                  alt="Ilma Multani, Mehndi Artist"
-                  loading="eager"
-                  initial={{ opacity: 0, scale: 1.08 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1], delay: 0.45 }}
-                />
+                <Reveal className="artist-photo-reveal" direction="none" delay={0.35} amount={0.1}>
+                  <img
+                    className="artist-photo"
+                    src="/artist-ilma.png"
+                    alt="Ilma Multani, Mehndi Artist"
+                    loading="eager"
+                  />
+                </Reveal>
               </div>
               <div className="artist-info-card">
                 <div className="artist-avatar">IM</div>
@@ -167,16 +164,14 @@ function App() {
             <Reveal className="about-media" direction="left" delay={0.1}>
               <div className="media-ring"></div>
               <div className="media-box">
-                <motion.img
-                  className="about-photo"
-                  src="/artist-ilma.png"
-                  alt="Ilma Multani, Mehndi Artist"
-                  loading="lazy"
-                  initial={{ opacity: 0, scale: 1.08 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1], delay: 0.4 }}
-                />
+                <Reveal className="artist-photo-reveal" direction="none" delay={0.3} amount={0.1}>
+                  <img
+                    className="about-photo"
+                    src="/artist-ilma.png"
+                    alt="Ilma Multani, Mehndi Artist"
+                    loading="lazy"
+                  />
+                </Reveal>
                 <div className="signature-glow"></div>
                 <div className="media-caption">Ilma Multani</div>
               </div>
@@ -538,6 +533,7 @@ function App() {
           min-height: 75vh;
           gap: 40px;
           background: radial-gradient(circle at 100% 0%, #FFF5EE 0%, transparent 60%);
+          overflow-x: clip; /* contain transient horizontal slide from scroll reveals */
         }
         .hero-content {
           max-width: 580px;
@@ -641,6 +637,11 @@ function App() {
           position: relative;
           overflow: hidden;
         }
+        .artist-photo-reveal {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+        }
         .artist-photo {
           width: 100%;
           height: 100%;
@@ -739,6 +740,7 @@ function App() {
           padding: 120px 6vw;
           background-color: #FBF7F4;
           border-top: 1px solid rgba(75, 47, 37, 0.04);
+          overflow-x: clip; /* contain transient horizontal slide from scroll reveals */
         }
         .about-grid {
           display: grid;
@@ -1183,6 +1185,7 @@ function App() {
         .training-section {
           padding: 120px 6vw;
           background-color: #FBF7F4;
+          overflow-x: clip; /* contain transient horizontal slide from scroll reveals */
         }
         .training-grid {
           display: grid;
