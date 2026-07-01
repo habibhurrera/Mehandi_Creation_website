@@ -256,7 +256,18 @@ function App() {
               <p className="service-desc">
                 Luxury bridal Mehndi designs crafted with precision, elegance, and personalization for weddings and special occasions.
               </p>
-              <div className="service-price">From ₹200</div>
+              <div className="service-price">From $200 <span className="price-inr">(₹200)</span></div>
+            </RevealItem>
+
+            <RevealItem className="service-card">
+              <div className="service-icon-box">
+                <Star size={24} className="service-icon" />
+              </div>
+              <h3 className="service-name">Classic Indo-Arabic Mehndi</h3>
+              <p className="service-desc">
+                Signature Indo-Arabic bridal styling — bold florals, flowing vines, and graceful negative space for a striking, elegant statement look.
+              </p>
+              <div className="service-price">From $400 <span className="price-inr">(₹400)</span></div>
             </RevealItem>
 
             <RevealItem className="service-card">
@@ -973,8 +984,15 @@ function App() {
         }
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 30px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .price-inr {
+          color: #8C6F62;
+          font-weight: 600;
+          font-size: 12px;
         }
         .service-card {
           background-color: #FFFDFB;
@@ -1036,6 +1054,10 @@ function App() {
           grid-template-columns: 1.2fr 0.8fr;
           gap: 60px;
           margin-bottom: 60px;
+        }
+        /* On the dark footer, brighten "Mehndi" so it doesn't blend into the background */
+        .site-footer .logo-text-mehandi {
+          color: #C79A92;
         }
         .footer-brand p {
           font-size: 14px;
@@ -1363,9 +1385,6 @@ function App() {
           .about-grid {
             grid-template-columns: 1fr;
             gap: 60px;
-          }
-          .services-grid {
-            grid-template-columns: 1fr;
           }
           .why-grid {
             grid-template-columns: repeat(2, 1fr);
